@@ -6,6 +6,7 @@ class FruitCategory(str, Enum):
     BERRY = "berry"
     STONE = "stone"
     OTHER = "other"
+    FRESH = "fresh"
 
 
 class Season(str, Enum):
