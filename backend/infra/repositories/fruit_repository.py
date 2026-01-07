@@ -21,3 +21,8 @@ class FruitRepository:
         return self.session.exec(
             select(Fruit).where(Fruit.quantity < Fruit.min_stock)
         ).all()
+    
+    def get_by_name(self, name: str) -> Optional[Fruit]:
+        return self.session.exec(
+            select(Fruit).where(Fruit.name == name)
+        ).first()
