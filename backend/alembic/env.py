@@ -9,7 +9,7 @@ from alembic import context
 import os
 from dotenv import load_dotenv
 from sqlmodel import SQLModel
-from domain.models.fruit import *
+from domain.models.fruit import Fruit
 
 load_dotenv()
 
