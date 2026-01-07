@@ -25,3 +25,15 @@ class FruitService:
             f"- {f.name} (quantidade: {f.quantity}, mínimo: {f.min_stock})"
             for f in fruits
         )
+    
+    def get_fruit_info(self, name: str) -> str:
+        """Retorna detalhes de uma fruta específica"""
+        fruit = self.repository.get_by_name(name)
+        if not fruit:
+            return f"Fruta '{name}' não encontrada."
+        return (
+            f"{fruit.name}: {fruit.quantity} {fruit.unit}, "
+            f"estoque mínimo: {fruit.min_stock}, "
+            f"categoria: {fruit.category}, "
+            f"origem: {fruit.origin_type}"
+        )
