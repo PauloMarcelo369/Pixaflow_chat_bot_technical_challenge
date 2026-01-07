@@ -9,4 +9,7 @@ class FruitRepository:
     def get_all(self) -> List[Fruit]:
         return self.session.exec(select(Fruit)).all()
     
+    def count_fruits(self) -> int:
+        return self.session.exec(select(Fruit)).count()
+    
     
