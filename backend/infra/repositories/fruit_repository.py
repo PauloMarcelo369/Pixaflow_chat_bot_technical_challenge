@@ -12,4 +12,7 @@ class FruitRepository:
     def count_fruits(self) -> int:
         return self.session.exec(select(Fruit)).count()
     
-    
+    def fruit_with_max_quantity(self) -> Optional[Fruit]:
+        return self.session.exec(
+            select(Fruit).order_by(Fruit.quantity.desc())
+        ).first()
