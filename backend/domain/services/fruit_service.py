@@ -15,3 +15,13 @@ class FruitService:
         if not fruit:
             return "Nenhuma fruta encontrada."
         return f"{fruit.name} tem a maior quantidade ({fruit.quantity} {fruit.unit})"
+    
+    def get_fruits_below_min_stock(self) -> str:
+        """Retorna todas as frutas abaixo do estoque mínimo"""
+        fruits = self.repository.fruits_below_min_stock()
+        if not fruits:
+            return "Nenhuma fruta está abaixo do estoque mínimo."
+        return "\n".join(
+            f"- {f.name} (quantidade: {f.quantity}, mínimo: {f.min_stock})"
+            for f in fruits
+        )
