@@ -64,3 +64,22 @@ Pergunta do usuário:
             return json.loads(text)
         except json.JSONDecodeError:
             return {"intent": "unknown", "parameters": {}}
+    
+    def get_intent(self, user_input: str) -> dict:
+        prompt = self.build_prompt(user_input)
+        headers = {
+            "Authorization" : f"Bearer {GEMINI_API_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        data = {
+            "model" : GEMINI_MODEL,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0
+        }
+
+        response = requests.post(GEMINI_API_URL, headers=headers, json=data)
+        response.raise_for_status()
+        result = response.json()
+        text_response = result["choices"][0]["message"]["content"]
+        return self.parse_response(text_response)
