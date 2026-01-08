@@ -1,6 +1,7 @@
 from sqlmodel import Session, select
 from domain.models.fruit import Fruit
 from typing import List, Optional
+from sqlalchemy import func
 
 class FruitRepository:
     def __init__(self, session : Session):
@@ -10,7 +11,7 @@ class FruitRepository:
         return self.session.exec(select(Fruit)).all()
     
     def count_fruits(self) -> int:
-        return self.session.exec(select(Fruit)).count()
+       return self.session.exec(select(func.count(Fruit.id))).one()
     
     def fruit_with_max_quantity(self) -> Optional[Fruit]:
         return self.session.exec(

@@ -9,6 +9,24 @@ class FruitService:
         """Retorna o número total de frutas cadastradas"""
         return self.repository.count_fruits()
     
+    def get_all(self) -> str:
+        fruits = self.repository.get_all()
+        if not fruits:
+            return "Não há frutas cadastradas."
+
+        lines = []
+        for f in fruits:
+            line = (
+                f"Nome: {f.name}, "
+                f"Categoria: {f.category.value}, "
+                f"Estação: {f.season.value}, "
+                f"Quantidade: {f.quantity} {f.unit.value}, "
+                f"Estoque mínimo: {f.min_stock}, "
+                f"Origem: {f.origin_type.value}"
+            )
+            lines.append(line)
+
+        return "\n".join(lines)
     def get_fruit_with_max_quantity(self) -> str:
         """Retorna a fruta com maior quantidade em formato legível"""
         fruit = self.repository.fruit_with_max_quantity()

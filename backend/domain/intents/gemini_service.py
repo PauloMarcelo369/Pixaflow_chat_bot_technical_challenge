@@ -41,10 +41,9 @@ Abaixo estão as intenções disponíveis e suas descrições detalhadas:
    - Descrição: Retorna todas as informações disponíveis de uma fruta específica.
    - Parâmetros:
      - "name": nome da fruta (ex: "Banana")
-
-5. summary
-   - Descrição: Gera um resumo textual de todas as frutas cadastradas, incluindo quantidade, cores, origem, etc.
-   - Parâmetros: nenhum
+5. get_all
+    - retorna todas as frutas disponíveis no catálogo
+    - Parâmetro: nenhum
 
 Regras importantes:
 - Retorne **APENAS JSON válido**.

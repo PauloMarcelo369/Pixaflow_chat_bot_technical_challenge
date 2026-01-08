@@ -5,6 +5,8 @@ class FruitIntentHandler:
     def __init__(self, service: FruitService): 
         self.service = service
     def handle(self, intent: FruitIntent, params: dict) -> str: 
+        if (intent == FruitIntent.GET_ALL.value):
+            return self.service.get_all()
         if intent == FruitIntent.COUNT_FRUITS.value: 
             return str(self.service.count_fruits()) 
         if intent == FruitIntent.FRUIT_WITH_MAX_QUANTITY.value: 
@@ -13,4 +15,4 @@ class FruitIntentHandler:
             return self.service.get_fruits_below_min_stock() 
         if intent == FruitIntent.GET_FRUIT_INFO.value: 
             return self.service.get_fruit_info(params.get("name")) 
-        raise ValueError("Intent não suportada")
+        return "ainda não tão inteligente pra resolver esse desafio meu amigo ;("
