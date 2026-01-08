@@ -55,3 +55,15 @@ class FruitService:
             f"categoria: {fruit.category}, "
             f"origem: {fruit.origin_type}"
         )
+    
+    def get_fruits_by_category(self, category: str) -> str:
+        fruits = self.repository.get_by_category(category)
+        if not fruits:
+            return f"Nenhuma fruta encontrada na categoria '{category}'."
+        return "\n".join(f"- {f.name} ({f.quantity} {f.unit})" for f in fruits)
+
+    def get_fruits_by_season(self, season: str) -> str:
+        fruits = self.repository.get_by_season(season)
+        if not fruits:
+            return f"Nenhuma fruta encontrada na estação '{season}'."
+        return "\n".join(f"- {f.name} ({f.quantity} {f.unit})" for f in fruits)

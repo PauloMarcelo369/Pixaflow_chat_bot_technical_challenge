@@ -14,5 +14,9 @@ class FruitIntentHandler:
         if intent == FruitIntent.FRUITS_BELOW_MIN_STOCK.value: 
             return self.service.get_fruits_below_min_stock() 
         if intent == FruitIntent.GET_FRUIT_INFO.value: 
-            return self.service.get_fruit_info(params.get("name")) 
+            return self.service.get_fruit_info(params.get("name"))
+        if intent == FruitIntent.GET_FRUITS_BY_CATEGORY.value:
+            return self.service.get_fruits_by_category(params.get("category"))
+        if intent == FruitIntent.GET_FRUITS_BY_SEASON.value:
+            return self.service.get_fruits_by_season(params.get("season"))
         return "ainda não tão inteligente pra resolver esse desafio meu amigo ;("

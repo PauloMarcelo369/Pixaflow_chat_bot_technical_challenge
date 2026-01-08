@@ -40,10 +40,23 @@ Abaixo estão as intenções disponíveis e suas descrições detalhadas:
 4. get_fruit_info
    - Descrição: Retorna todas as informações disponíveis de uma fruta específica.
    - Parâmetros:
-     - "name": nome da fruta (ex: "Banana")
+     - "name": nome da fruta (ex: "Banana"), se a primeira letra do parâmetro tiver em minúsculo, coloque um upcase, exemplo banana = Banana
 5. get_all
     - retorna todas as frutas disponíveis no catálogo
     - Parâmetro: nenhum
+
+
+6. get_fruits_by_category
+   - Descrição: Retorna todas as frutas de uma categoria específica.
+   - Parâmetros:
+     - "category": categoria da fruta (ex: "Cítricas")
+     - converta a categoria para inglês caso venha em portugues, além de deixar a primeira letra sempre em minusculo: exemplo Cítricas = citrus
+
+7. get_fruits_by_season
+   - Descrição: Retorna todas as frutas de uma estação específica.
+   - Parâmetros:
+     - "season": estação da fruta (ex: "Verão")
+     converta a season para inglês caso venha em portugues, além de deixar a primeira letra em minusculo: exemplo Verão = sumer
 
 Regras importantes:
 - Retorne **APENAS JSON válido**.

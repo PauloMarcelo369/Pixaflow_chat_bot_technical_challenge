@@ -27,3 +27,13 @@ class FruitRepository:
         return self.session.exec(
             select(Fruit).where(Fruit.name == name)
         ).first()
+    
+    def get_by_category(self, category: str) -> List[Fruit]:
+        return self.session.exec(
+            select(Fruit).where(Fruit.category == category)
+        ).all()
+
+    def get_by_season(self, season: str) -> List[Fruit]:
+        return self.session.exec(
+            select(Fruit).where(Fruit.season == season)
+        ).all()
