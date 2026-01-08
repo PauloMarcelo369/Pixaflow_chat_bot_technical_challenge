@@ -7,6 +7,7 @@ export default function Chat() {
 
   const handleSubmit = async () => {
     if (!question.trim()) return;
+    setMessageList((current) => [...current, question]);
     const response = await api.post(`/api/chat?user_question=${handleSubmit}`);
     setMessageList((current) => [...current, response]);
     setQuestion("");
@@ -15,6 +16,11 @@ export default function Chat() {
   return (
     <div>
       <h1>Chat</h1>
+      {messageList.map((message, index) => (
+        <p key={index}>
+          {index % 2 == 0 ? "You" : "Fruit Bot"} : {message}
+        </p>
+      ))}
       <input
         type="text"
         value={question}
