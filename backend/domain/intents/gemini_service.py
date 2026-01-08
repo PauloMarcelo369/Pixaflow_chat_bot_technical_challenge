@@ -1,15 +1,20 @@
 import os
 import json
-import requests
+from google import genai
+from google.genai import types # For configuration types
 from dotenv import load_dotenv
 
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5")
-GEMINI_API_URL = os.getenv("GEMINI_API_URL")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 class GeminiService:
+    def __init__(self):
+        self.model_id = GEMINI_MODEL
+
     def build_prompt(self, user_input: str) -> str:
         return f"""
 Você é um analisador de intenções de um sistema de frutas.
@@ -60,26 +65,31 @@ Pergunta do usuário:
 """
     
     def parse_response(self, text: str) -> dict:
+        clean_text = text.replace("```json", "").replace("```", "").strip()
         try:
-            return json.loads(text)
+            return json.loads(clean_text)
         except json.JSONDecodeError:
+            print(f"Erro ao parsear JSON: {text}")
             return {"intent": "unknown", "parameters": {}}
     
     def get_intent(self, user_input: str) -> dict:
-        prompt = self.build_prompt(user_input)
-        headers = {
-            "Authorization" : f"Bearer {GEMINI_API_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        data = {
-            "model" : GEMINI_MODEL,
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0
-        }
-
-        response = requests.post(GEMINI_API_URL, headers=headers, json=data)
-        response.raise_for_status()
-        result = response.json()
-        text_response = result["choices"][0]["message"]["content"]
-        return self.parse_response(text_response)
+        try:
+            prompt = self.build_prompt(user_input)
+            
+            response = client.models.generate_content(
+                model=self.model_id,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type='application/json',
+                    temperature=0.1,
+                    max_output_tokens=200
+                )
+            )
+            print("esse daqui é o response: ", response.text)
+            if response.text:
+                return self.parse_response(response.text)
+            return {"intent": "unknown", "parameters": {}}
+                    
+        except Exception as e:
+            print(f"Erro ao chamar Gemini API: {e}")
+            return {"intent": "unknown", "parameters": {}}
