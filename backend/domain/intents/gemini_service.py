@@ -59,4 +59,8 @@ Pergunta do usuário:
 "{user_input}"
 """
     
-    
+    def parse_response(self, text: str) -> dict:
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            return {"intent": "unknown", "parameters": {}}
