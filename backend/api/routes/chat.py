@@ -16,7 +16,7 @@ def chat(user_question : str, session : Session = Depends(get_session)):
     handler = FruitIntentHandler(service)
 
     gemini_json = gemini.get_intent(user_question)
-
+    
     response_text = handler.handle(intent=gemini_json["intent"], params=gemini_json["parameters"])
 
     return {"response": response_text}

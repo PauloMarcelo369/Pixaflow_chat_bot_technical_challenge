@@ -17,12 +17,12 @@ class FruitService:
         lines = []
         for f in fruits:
             line = (
-                f"Nome: {f.name}, "
-                f"Categoria: {f.category.value}, "
-                f"Estação: {f.season.value}, "
-                f"Quantidade: {f.quantity} {f.unit.value}, "
-                f"Estoque mínimo: {f.min_stock}, "
-                f"Origem: {f.origin_type.value}"
+                f"Nome: {f.name}, \n"
+                f"Categoria: {f.category.value}, \n"
+                f"Estação: {f.season.value}, \n"
+                f"Quantidade: {f.quantity} {f.unit.value}, \n"
+                f"Estoque mínimo: {f.min_stock}, \n"
+                f"Origem: {f.origin_type.value} \n"
             )
             lines.append(line)
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../../api/api";
-import styles from "./Chat.module.css"; // <-- note o "styles"
+import styles from "./Chat.module.css";
 
 export default function Chat() {
   const [question, setQuestion] = useState("");
@@ -53,7 +53,12 @@ export default function Chat() {
                   : styles.botMessage
               }`}
             >
-              {message.text}
+              {message.text.split("\n").map((line, idx) => (
+                <span key={idx}>
+                  {line}
+                  <br />
+                </span>
+              ))}
             </div>
           ))}
 
